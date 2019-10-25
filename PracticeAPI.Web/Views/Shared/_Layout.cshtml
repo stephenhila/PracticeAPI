@@ -38,12 +38,27 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-
-    <div class="chatbox">
-        <div id="discussion"></div>
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send" />
-        <input type="hidden" id="displayname" />
+    <div class="row">
+        <div class="chatbox panel panel-primary">
+            <div class="panel-heading" id="accordion">
+                <span class="glyphicon glyphicon-comment"></span> Chat
+                <div class="btn-group pull-right">
+                    <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-collapse collapse" id="collapseOne">
+                <div class="panel-body">
+                    <ul id="discussion" class="chat"></ul>
+                </div>
+                <div class="panel-footer">
+                    <input type="text" id="message" />
+                    <input type="button" id="sendmessage" value="Send" />
+                    <input type="hidden" id="displayname" />
+                </div>
+            </div>
+        </div>
     </div>
     <!--Script references. -->
     <!--Reference the SignalR library. -->
@@ -58,8 +73,8 @@
             // Create a function that the hub can call to broadcast messages.
             chat.client.addNewMessageToPage = function (name, message) {
                 // Add the message to the page.
-                $('#discussion').append('<div><strong>' + htmlEncode(name)
-                    + '</strong>:&nbsp;&nbsp;' + htmlEncode(message) + '</div>');
+                $('#discussion').append('<li class="left clearfix"><strong>' + htmlEncode(name)
+                    + '</li>:&nbsp;&nbsp;' + htmlEncode(message) + '</div>');
             };
             //// Get the user name and store it to prepend to messages.
             //$('#displayname').val(prompt('Enter your name:', ''));
@@ -72,6 +87,8 @@
                     chat.server.send($('#message').val());
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
+                    // Scroll downward whenever a new chats come
+                    $(".panel-body").stop().animate({ scrollTop: $(".panel-body")[0].scrollHeight }, 1000);
                 });
             });
         });

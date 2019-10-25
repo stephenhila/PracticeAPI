@@ -20,23 +20,64 @@ textarea {
     position: fixed;
     bottom: 5px;
     right: 0px;
-    width: 400px;
-    height: 200px;
+    width: 300px;
     vertical-align: bottom;
-    background-color: beige;
+    background-color: ghostwhite;
 }
 
-#discussion {
+.chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body {
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body {
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p {
+    margin: 0;
+    color: #777777;
+}
+
+
+/*#discussion {
     display: flex;
     flex-direction: column;
     height: 86%;
     margin-bottom: 5px;
-}
+}*/
 
-#discussion div:nth-last-child(n+10) {
+/*#discussion ul:nth-last-child(n+50) {
     display: none;
-}
+}*/
 
 #message {
     width: 80%;
+}
+
+/*bootstrap extended styles*/
+.panel .slidedown .glyphicon, .chat .glyphicon {
+    margin-right: 5px;
+}
+
+.panel-body {
+    overflow-y: scroll;
+    height: 250px;
+}
+
+.panel-body {
+    overflow-y: scroll;
+    height: 250px;
 }
