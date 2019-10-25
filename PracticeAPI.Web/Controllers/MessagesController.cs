@@ -6,13 +6,12 @@ using System.Web.Mvc;
 
 namespace PracticeAPI.Web.Controllers
 {
-    public class HomeController : Controller
+    public class MessagesController : Controller
     {
+        // GET: Message
         [Authorize]
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
         }
     }

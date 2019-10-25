@@ -14,6 +14,7 @@ namespace PracticeAPI.Web.Controllers
     public class CarsController : Controller
     {
         // GET: Car
+        [Authorize]
         public ActionResult Index()
         {
             AuthResponse authResponse = null;
@@ -45,18 +46,21 @@ namespace PracticeAPI.Web.Controllers
         }
 
         // GET: Car/Details/5
+        [Authorize]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Car/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Car/Create
+        [Authorize]
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -72,12 +76,14 @@ namespace PracticeAPI.Web.Controllers
         }
 
         // GET: Car/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             return View();
         }
 
         // POST: Car/Edit/5
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -94,12 +100,14 @@ namespace PracticeAPI.Web.Controllers
         }
 
         // GET: Car/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
         // POST: Car/Delete/5
+        [Authorize]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
