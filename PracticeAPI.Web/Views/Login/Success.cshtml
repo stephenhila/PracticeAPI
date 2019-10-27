@@ -1,0 +1,22 @@
+﻿@model PracticeAPI.Web.Models.ViewModels.Login.RegistrationSuccessViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Success!</title>
+
+</head>
+<body>
+    <div>
+        Welcome @Model.Username!
+    </div>
+    <div>
+        Go to @Html.ActionLink("login", "Index") page.
+    </div>
+</body>
+</html>
