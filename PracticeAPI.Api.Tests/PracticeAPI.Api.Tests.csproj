@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5DACB3B8-86F3-4DA4-9B0E-428C67FE4AD3}</ProjectGuid>
+    <ProjectGuid>{50797AF9-42DB-4991-9F72-D565A1BFA054}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PracticeAPI.Api.Tests</RootNamespace>
@@ -94,7 +94,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -104,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PracticeAPI.Api\PracticeAPI.Api.csproj">
-      <Project>{A33EF738-D02F-45BF-90A1-50BEF96312D2}</Project>
+      <Project>{62029F51-C773-478A-9DFE-0D469C47D832}</Project>
       <Name>PracticeAPI.Api</Name>
     </ProjectReference>
   </ItemGroup>

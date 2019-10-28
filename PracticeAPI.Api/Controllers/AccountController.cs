@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -7,12 +8,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
+using AspNet.Identity.MongoDB;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using PracticeAPI.Api.Authentication;
 using PracticeAPI.Api.Models;
 using PracticeAPI.Api.Providers;
 using PracticeAPI.Api.Results;
@@ -28,6 +30,9 @@ namespace PracticeAPI.Api.Controllers
 
         public AccountController()
         {
+            this.UserManager = new UserManager<ApplicationUser>(
+                new MongoDBUserStore(ConfigurationManager.AppSettings["connectionString"], ConfigurationManager.AppSettings["usersDbName"])
+            ) as ApplicationUserManager;
         }
 
         public AccountController(ApplicationUserManager userManager,
@@ -125,7 +130,7 @@ namespace PracticeAPI.Api.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-
+            
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -258,9 +263,9 @@ namespace PracticeAPI.Api.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-
-                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                   OAuthDefaults.AuthenticationType);
+                
+                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                    OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -328,7 +333,7 @@ namespace PracticeAPI.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, EmailAddress = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -357,7 +362,7 @@ namespace PracticeAPI.Api.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, EmailAddress = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
@@ -368,7 +373,7 @@ namespace PracticeAPI.Api.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return GetErrorResult(result); 
             }
             return Ok();
         }
