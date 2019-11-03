@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using Microsoft.AspNet.SignalR;
-using PracticeAPI.Web.Models.DbModels;
+using PracticeAPI.Web.Models.ApiModels;
 
 namespace PracticeAPI.Web
 {

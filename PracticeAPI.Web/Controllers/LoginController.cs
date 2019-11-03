@@ -1,20 +1,14 @@
 ﻿using Microsoft.Owin.Security;
-using MongoDB.Driver;
-using Newtonsoft.Json;
-using PracticeAPI.Web.Authentication;
 using PracticeAPI.Web.Models.ApiModels;
-using PracticeAPI.Web.Models.DbModels;
 using PracticeAPI.Web.Models.ViewModels.Login;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace PracticeAPI.Web.Controllers
 {
