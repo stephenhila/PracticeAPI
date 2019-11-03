@@ -27,6 +27,8 @@ namespace PracticeAPI.Api.Models
 
     public class UserInfoViewModel
     {
+        public string Username { get; set; }
+
         public string Email { get; set; }
 
         public bool HasRegistered { get; set; }

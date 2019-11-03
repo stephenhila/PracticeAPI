@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace PracticeAPI.Web.Models.DbModels
+namespace PracticeAPI.Api.Models.DbModels
 {
     public class MessageModel
     {

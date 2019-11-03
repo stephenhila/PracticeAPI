@@ -3,48 +3,35 @@ using PracticeAPI.Api.Models.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace PracticeAPI.Api.Controllers
 {
-    public class RegistrationController : ApiController
+    public class MessagesController : ApiController
     {
-        [AllowAnonymous]
         [HttpGet]
-        public async Task<bool> IsUsernameAvailable(string username)
+        public async Task<IEnumerable<MessageModel>> Get(int count)
         {
             string constr = ConfigurationManager.AppSettings["connectionString"];
             var Client = new MongoClient(constr);
             var DB = Client.GetDatabase(ConfigurationManager.AppSettings["dbName"]);
-            var collection = DB.GetCollection<UserModel>("Users");
-            var cursor = await collection.FindAsync(x => x.Username == username).ConfigureAwait(false);
-            var userModel = await cursor.FirstOrDefaultAsync();
-
-            if (userModel == null)
-            {
-                return true;
-            }
-
-            return false;
+            var collection = DB.GetCollection<MessageModel>("Messages");
+            return await collection.Find(x => true).Limit(count).ToListAsync();
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IHttpActionResult> PostNewUser(UserModel user)
+        public async Task<IHttpActionResult> Post(MessageModel message)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data posted!");
-
             try
             {
                 string constr = ConfigurationManager.AppSettings["connectionString"];
                 var Client = new MongoClient(constr);
                 var DB = Client.GetDatabase(ConfigurationManager.AppSettings["dbName"]);
-                var collection = DB.GetCollection<UserModel>("Users");
-                await collection.InsertOneAsync(user);
+                var collection = DB.GetCollection<MessageModel>("Messages");
+                await collection.InsertOneAsync(message);
 
                 return Ok();
             }

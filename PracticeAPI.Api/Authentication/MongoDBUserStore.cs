@@ -41,7 +41,7 @@ namespace PracticeAPI.Api.Authentication
         {
             string constr = ConfigurationManager.AppSettings["connectionString"];
             var Client = new MongoClient(constr);
-            var DB = Client.GetDatabase(ConfigurationManager.AppSettings["usersDbName"]);
+            var DB = Client.GetDatabase(ConfigurationManager.AppSettings["dbName"]);
             var collection = DB.GetCollection<UserModel>("Users");
             var cursor = await collection.FindAsync(x => x.Id == userId).ConfigureAwait(false);
             var userModel = await cursor.FirstOrDefaultAsync();
@@ -58,7 +58,7 @@ namespace PracticeAPI.Api.Authentication
         {
             string constr = ConfigurationManager.AppSettings["connectionString"];
             var Client = new MongoClient(constr);
-            var DB = Client.GetDatabase(ConfigurationManager.AppSettings["usersDbName"]);
+            var DB = Client.GetDatabase(ConfigurationManager.AppSettings["dbName"]);
             var collection = DB.GetCollection<UserModel>("Users");
             var cursor = await collection.FindAsync(x => x.Username == userName).ConfigureAwait(false);
             var userModel = await cursor.FirstOrDefaultAsync();

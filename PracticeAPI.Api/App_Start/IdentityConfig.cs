@@ -21,7 +21,7 @@ namespace PracticeAPI.Api
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new MongoDBUserStore(ConfigurationManager.AppSettings["connectionString"], ConfigurationManager.AppSettings["usersDbName"]));
+            var manager = new ApplicationUserManager(new MongoDBUserStore(ConfigurationManager.AppSettings["connectionString"], ConfigurationManager.AppSettings["dbName"]));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -49,7 +49,7 @@ namespace PracticeAPI.Api
         {
             string constr = ConfigurationManager.AppSettings["connectionString"];
             var Client = new MongoClient(constr);
-            var DB = Client.GetDatabase(ConfigurationManager.AppSettings["usersDbName"]);
+            var DB = Client.GetDatabase(ConfigurationManager.AppSettings["dbName"]);
             var collection = DB.GetCollection<UserModel>("Users");
             var cursor = await collection.FindAsync(x => x.Username == userName && x.Password == password).ConfigureAwait(false);
             var userModel = await cursor.FirstOrDefaultAsync();

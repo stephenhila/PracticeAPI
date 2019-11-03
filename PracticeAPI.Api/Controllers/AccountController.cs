@@ -31,7 +31,7 @@ namespace PracticeAPI.Api.Controllers
         public AccountController()
         {
             this.UserManager = new UserManager<ApplicationUser>(
-                new MongoDBUserStore(ConfigurationManager.AppSettings["connectionString"], ConfigurationManager.AppSettings["usersDbName"])
+                new MongoDBUserStore(ConfigurationManager.AppSettings["connectionString"], ConfigurationManager.AppSettings["dbName"])
             ) as ApplicationUserManager;
         }
 
@@ -65,7 +65,7 @@ namespace PracticeAPI.Api.Controllers
 
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                Username = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
